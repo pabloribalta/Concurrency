@@ -1,3 +1,13 @@
+/*
+* Session 1, example 12
+*
+* The move support in std::thread means  that  ownership  can  readily  be  transferred out of a function.
+*
+* Likewise,  if  ownership  should  be  transferred  into  a  function,  it  can  just  accept  an instance
+* of std::thread by value as one of the parameters, as shown in the following example.
+*
+*/
+
 #include <ostream>
 #include <iostream>
 #include <thread>
