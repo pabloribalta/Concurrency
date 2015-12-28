@@ -12,7 +12,9 @@ template<typename T>
 class ThreadSafeStack
 {
 public:
-  ThreadSafeStack() {}
+  ThreadSafeStack()
+  {
+  }
 
   ThreadSafeStack(const ThreadSafeStack& other)
   {
@@ -69,3 +71,4 @@ int main()
 {
   return 0;
 }
+
