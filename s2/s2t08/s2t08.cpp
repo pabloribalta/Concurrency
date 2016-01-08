@@ -1,3 +1,9 @@
+/*
+* Session 2, example 08:
+*
+* Real-world use case of std::call_once() for initializing a connection.
+*
+*/
 #include <mutex>
 
 

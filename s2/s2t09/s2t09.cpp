@@ -1,3 +1,9 @@
+/*
+* Session 2, example 09:
+*
+* Scraping an interface for a thread-safe stack.
+*/
+
 #include <exception>
 #include <memory> 
 #include <stack>

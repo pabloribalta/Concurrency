@@ -1,3 +1,15 @@
+/*
+* Session 2, example 03:
+*
+* As  well  as checking that the member functions don’t pass out pointers or references to their callers,
+* it’s  also  important  to  check  that  they  don’t  pass  such  pointers  or  references in to functions
+* they call that aren’t under your control. This is just as dangerous: those functions might store the
+* pointer or reference in a place where it can later be used without the protection  of  the  mutex.
+*
+* Particularly  dangerous  in  this  regard  are  functions  that  are  supplied at runtime via a function
+* argument or other means,
+*
+*/
 #include <string>
 #include <mutex>
 
@@ -43,7 +55,7 @@ void maliciousFunction(Data& protected_data)
   unprotected = &protected_data;
 }
 
-void lazyInitializationWithCallOnce()
+void doSomething()
 {
   myWrapper.processData(maliciousFunction); /* (!) Pass in a malicious function */
   unprotected->doSomething(); /* (!) Unprotected access to protected data */
@@ -51,7 +63,7 @@ void lazyInitializationWithCallOnce()
 
 int main()
 {
-  lazyInitializationWithCallOnce();
+  doSomething();
 
   return 0;
 }

@@ -1,3 +1,10 @@
+/*
+* Session 2, example 07:
+*
+* In the following example, we show how through std::call_once() we can get rid of undefined
+* behavior derived from teh antipattern Double-Checked Locking.
+*
+*/
 #include <mutex>
 #include <memory>
 #include <iostream>
@@ -48,7 +55,7 @@ void undefinedBehavirourWithDoubleCheckedLocking()
 
 std::once_flag resource_flag;
 
-void lazyInitializationWithCallOnce()
+void doSomething()
 {
   std::call_once(resource_flag, initializeResource);
   resource_ptr->doSomething();
@@ -60,7 +67,7 @@ int main()
 
   undefinedBehavirourWithDoubleCheckedLocking(); /* (!) Oops */
 
-  lazyInitializationWithCallOnce();
+  doSomething();
 
   return 0;
 }

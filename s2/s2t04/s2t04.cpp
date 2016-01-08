@@ -1,3 +1,23 @@
+/*
+* Session 2, example 04:
+*
+* The common advice for avoiding deadlock is to always lock the two mutexes in the same order: if you always lock mutex
+* A before mutex B, then you’ll never deadlock.
+*
+* Sometimes  this  is  straightforward,  because  the  mutexes  are  serving  different  purposes, but other times it’s
+* not so simple, such as when the mutexes are each protecting  a  separate  instance  of  the  same  class.  
+*
+* Consider,  for  example,  an  operation  that exchanges  data  between  two  instances  of  the  same class; in order
+* to ensure that the data  is  exchanged  correctly,  without  being  affected  by  concurrent  modifications, the mutexes
+* on  both  instances  must  be  locked.  However,  if  a  fixed  order  is  chosen (for  example,  the  mutex  for  the
+* instance  supplied  as  the  first  parameter,  then  the mutex  for  the  instance  supplied  as  the  second  parameter),
+* this  can  backfire:  all  it takes is for two threads to try to exchange data between the same two instances with
+* the parameters swapped, and you have deadlock!
+*
+* Thankfully, the C++ Standard Library has a cure for this —in the form of std::lock()— a  function  that  can  lock  two  
+* or  more  mutexes  at  once  without  risk  of  deadlock.
+*
+*/
 #include <mutex>
 #include <iostream>
 #include <string>
@@ -5,10 +25,11 @@
 class Widget
 {
 public:
-  explicit Widget(std::string &name)
+  explicit Widget(std::string &&name)
     : m_name(name)
   {    
   }
+
   std::mutex m_mutex;
   std::string m_name;
 };

@@ -24,7 +24,7 @@ class ThreadGuard
   std::thread t;
 
 public:
-  explicit ThreadGuard(std::thread& t_)
+  explicit ThreadGuard(std::thread&& t_)
     : t(std::move(t_))
   {
     if (!t.joinable()) {

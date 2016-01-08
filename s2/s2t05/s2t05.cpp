@@ -1,3 +1,17 @@
+/*
+* Session 2, example 05:
+*
+* std::unique_lock provides  a  bit  more  flexibility  than std::lock_guard by  relaxing the  invariants;
+* a std::unique_lock instance  doesn’t  always  own  the  mutex  that  it’s associated with.
+*
+* First off, just as you can pass std::adopt_lock as a second argument to the constructor to have the lock
+* object manage the lock on a mutex, you can also pass std::defer_lock as  the  second  argument  to  indicate
+* that  the  mutex  should remain  unlocked  on  construction.
+*
+* The  lock  can  then  be  acquired  later  by  calling std::lock() on  the std::unique_lock object (not the  mutex)
+* or  by  passing  the std::unique_lock object  itself  to std::lock().
+*
+*/
 #include <mutex>
 #include <iostream>
 #include <string>
@@ -5,19 +19,9 @@
 class Widget
 {
 public:
-  explicit Widget(std::string &name)
+  explicit Widget(std::string &&name)
     : m_name(name)
   {
-  }
-
-  void setName(std::string &name)
-  {
-    m_name = name;
-  }
-
-  std::string m_namegetName() const
-  {
-    return m_name;
   }
 
   std::mutex m_mutex;
